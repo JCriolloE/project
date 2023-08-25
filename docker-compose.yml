@@ -1,0 +1,36 @@
+version: "3.10"
+
+services:
+  app:
+    build: /release/app
+    ports:
+      - 8000:8000
+    networks:
+      AIservice:
+        aliases:
+          - app.docker
+
+  app2:
+    build: /release/app2
+    ports:
+      - 7000:7000
+    networks:
+      AIservice:
+        aliases:
+          - app2.docker
+
+  frontend:
+    build: /release/frontend
+    ports:
+      - 3000:3000
+    networks:
+      AIservice:
+        aliases:
+          - frontend.docker
+    depends_on:
+      - app
+      - app2
+
+networks:
+  AIservice:
+    external: true

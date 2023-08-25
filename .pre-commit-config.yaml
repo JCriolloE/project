@@ -1,0 +1,109 @@
+repos:
+- repo: https://github.com/pre-commit/mirrors-autopep8
+  rev: "" # Specify a specific version/tag/commit or leave empty for the latest version
+  hooks:
+  - id: autopep8
+<<<<<<< HEAD
+    exclude: envProject/* # Specify files or patterns to exclude, '^$' excludes nothing (all files will be checked)
+    args: [--verbose, --in-place, --aggressive, --aggressive]
+=======
+    exclude: --exclude=envProyect # Specify files or patterns to exclude, '^$' excludes nothing (all files will be checked)
+    args: [--verbose, --in-place, --aggressive]
+>>>>>>> parent of fbcef4f (add pre-commit file)
+
+- repo: https://github.com/PyCQA/flake8
+  rev: 6.0.0
+  hooks:
+  - id: flake8
+<<<<<<< HEAD
+    exclude: env*
+=======
+    exclude: envProyect
+>>>>>>> parent of fbcef4f (add pre-commit file)
+    args: [--ignore=E501]
+
+- repo: https://github.com/PyCQA/isort
+  rev: 5.12.0
+  hooks:
+    - id: isort
+      exclude: doc/data/messages/
+
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: trailing-whitespace
+    exclude: tests(/\w*)*/functional/t/trailing_whitespaces.py|tests/pyreverse/data/.*.html|doc/data/messages/t/trailing-whitespace/bad.py
+  - id: end-of-file-fixer
+    exclude: |
+      (?x)^(
+        tests(/\w*)*/functional/m/missing/missing_final_newline.py|
+        tests/functional/t/trailing_newlines.py|
+        doc/data/messages/t/trailing-newlines/bad.py|
+        doc/data/messages/m/missing-final-newline/bad.py|
+      )$
+
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.0.284
+  hooks:
+<<<<<<< HEAD
+  - id: ruff
+    args: ["--fix"]
+    exclude: &fixtures tests(/\w*)*/functional/|tests/input|doc/data/messages|tests(/\w*)*data/|env*
+  - id: ruff
+    name: ruff-doc
+    files: doc/data/messages
+    args: ["--config", "doc/data/ruff.toml"]
+    exclude: envProject/*
+=======
+    - id: ruff
+      exclude: envProyect
+      args: [--fix, --exit-non-zero-on-fix]
+>>>>>>> parent of fbcef4f (add pre-commit file)
+
+- repo: https://github.com/asottile/pyupgrade
+  rev: v3.9.0
+  hooks:
+  - id: pyupgrade
+    args: [--py310-plus]
+
+- repo: https://github.com/Pierre-Sassoulas/black-disable-checker
+  rev: v1.1.3
+  hooks:
+  - id: black-disable-checker
+
+- repo: https://github.com/rstcheck/rstcheck
+  rev: "v6.1.2"
+  hooks:
+  - id: rstcheck
+    args: ["--report-level=warning"]
+    files: ^(doc/(.*/)*.*\.rst)
+    additional_dependencies: [Sphinx==5.0.1]
+
+- repo: https://github.com/DanielNoord/pydocstringformatter
+  rev: v0.7.3
+  hooks:
+  - id: pydocstringformatter
+    args: ["--max-summary-lines=2", "--linewrap-full-docstring"]
+    files: "pylint"
+
+- repo: https://github.com/regebro/pyroma
+  rev: "4.2"
+  hooks:
+  - id: pyroma
+    # Must be specified because of the default value in pyroma
+    always_run: false
+    files: |
+      (?x)^(
+           README.rst|
+           pyproject.toml|
+           pylint/__init__.py|
+           pylint/__pkginfo__.py|
+           setup.cfg
+       )$
+
+- repo: https://github.com/PyCQA/bandit
+  rev: 1.7.5
+  hooks:
+  - id: bandit
+    args: ["-r", "-lll"]
